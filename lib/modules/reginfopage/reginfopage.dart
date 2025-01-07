@@ -4,9 +4,9 @@ import 'package:flutter/widgets.dart';
 import 'package:matrixclient2base/appconfig.dart';
 import 'package:matrixclient2base/modules/base/vwdataformat/vwfiedvalue/vwfieldvalue.dart';
 import 'package:matrixclient2base/modules/base/vwnode/vwnode.dart';
-import 'package:nodelistview/modules/pagecoordinator/bloc/pagecoordinator_bloc.dart';
 import 'package:nodelistview/modules/reginfopage/invalidticket.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:vwform/modules/pagecoordinator/bloc/pagecoordinator_bloc.dart';
 import 'package:vwutil/modules/util/nodeutil.dart';
 
 class RegInfoPage extends StatefulWidget {
