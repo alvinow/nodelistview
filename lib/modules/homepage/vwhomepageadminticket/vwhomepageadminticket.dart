@@ -19,7 +19,7 @@ class VwHomePageAdminTicket extends StatelessWidget {
     this.homeTabItemList = [];
     this.createHomeTabItemList();
   }
-  
+
   final VwAppInstanceParam appInstanceParam;
   final int initialIndex;
   final VwRowData? formResponse;
