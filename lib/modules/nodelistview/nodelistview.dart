@@ -128,7 +128,6 @@ class NodeListView extends StatefulWidget {
       this.isListReverse = false,
       this.margin = const EdgeInsets.fromLTRB(10, 65, 0, 5),
       this.backgroundColor = Colors.transparent,
-        required this.baseUrl,
       this.excludedRow = const []});
 
   static const String mlaLeft = "mlaLeft";
@@ -152,7 +151,6 @@ class NodeListView extends StatefulWidget {
   static const String bsmCommentBox = "bsmCommentBox";
   static const String bsmVideoPointerBox = "bsmVideoPointer";
 
-  final String baseUrl;
   final VwRowData? footerWidgetParameter;
   final bool isScrollable;
   final VwAppInstanceParam appInstanceParam;
@@ -1311,7 +1309,6 @@ class _NodeListViewState extends State<NodeListView>
             visualDensity: VisualDensity.compact,
             onPressed: () {
               Widget searchPage = NodeListView(
-                baseUrl: this.widget.baseUrl,
                 appInstanceParam: this.widget.appInstanceParam,
                 showUserInfoIcon: false,
                 apiCallId: this.widget.apiCallId,
@@ -1409,8 +1406,7 @@ class _NodeListViewState extends State<NodeListView>
                           child: getUserInfoPageNodeListView()))),
             );
           },
-          icon: ProfilePictureUtil.getUserProfilePictureFromAppInstanceParam(
-            baseUrl: this.widget.baseUrl,
+          icon: ProfilePictureUtil.getUserProfilePictureOfLoggedInUser(
               appInstanceParam: this.widget.appInstanceParam));
 
       actionWidgetList.add(userInfoIcon);

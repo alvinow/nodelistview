@@ -63,7 +63,6 @@ class FormAdminPage extends StatelessWidget {
     ]);
     
     return NodeListView(
-      baseUrl: this.baseUrl,
   appInstanceParam: appInstanceParam,
 
         apiCallId: "getNodes",
