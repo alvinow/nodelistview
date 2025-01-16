@@ -8,12 +8,16 @@ import 'package:nodelistview/modules/reginfopage/invalidticket.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:vwform/modules/pagecoordinator/bloc/pagecoordinator_bloc.dart';
 import 'package:vwform/modules/vwappinstanceparam/vwappinstanceparam.dart';
+import 'package:vwform/modules/vwwidget/vwformresponseuserpage/branchviewer/branchviewer.dart';
 import 'package:vwutil/modules/util/nodeutil.dart';
+import 'package:matrixclient2base/appconfig.dart';
 
 class RegInfoPage extends StatefulWidget {
-  RegInfoPage({required this.state, required this.appInstanceParam});
-  RegInfoPagePagecoordinatorState state;
-  VwAppInstanceParam appInstanceParam;
+  RegInfoPage({required this.state, required this.baseAppConfig});
+  final RegInfoPagePagecoordinatorState state;
+
+  final BaseAppConfig baseAppConfig;
+
 
   _RegInfoPageState createState() => _RegInfoPageState();
 }
@@ -134,7 +138,7 @@ class _RegInfoPageState extends State<RegInfoPage> {
                   margin: EdgeInsets.fromLTRB(
                       height * 0.1, width * 1.6, height * 0.1, 0),
                   child: QrImageView(
-                    data: this.widget.appInstanceParam.baseAppConfig.generalConfig.baseUrl +
+                    data: this.widget.baseAppConfig.generalConfig.baseUrl +
                         "/#/tiket/" +
                         Uri.encodeComponent(regCodeFieldValue!.valueString!),
                     version: QrVersions.auto,
