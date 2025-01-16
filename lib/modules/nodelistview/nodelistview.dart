@@ -109,8 +109,8 @@ class NodeListView extends StatefulWidget {
       this.enableScaffold = true,
       this.enableAppBar = true,
       this.mainLogoMode = NodeListView.mlmDisabled,
-      this.mainLogoImageAsset = AppConfig.textLogoPath,
-      this.mainLogoTextCaption = AppConfig.appTitle,
+      required this.mainLogoImageAsset ,
+      this.mainLogoTextCaption ,
       this.showRootLogoPath = false,
       this.mainLogoAlignment = NodeListView.mlaLeft,
       this.toolbarHeight = 64,
@@ -339,7 +339,7 @@ class _NodeListViewState extends State<NodeListView>
               returnValue = Container(
                   height: 300,
                   width: 300,
-                  child: YoutubeAppDemo(videoIds: [videoId]));
+                  child: YoutubeAppDemo(appInstanceParam: this.widget.appInstanceParam, videoIds: [videoId]));
             }
           }
         } catch (error) {}
@@ -498,6 +498,8 @@ class _NodeListViewState extends State<NodeListView>
 
     VwNodeRequestResponse nodeRequestResponse =
         await NodeListViewLib.fetchRenderedNode(
+          baseUrl: this.widget.appInstanceParam.baseAppConfig.generalConfig.baseUrl,
+            graphqlServerAddress: this.widget.appInstanceParam.baseAppConfig.generalConfig.graphqlServerAddress,
             topRowNode: topRowPaddingNode,
             selectedLinkNode: this.widget.excludedNodeFetch != null
                 ? this.widget.excludedNodeFetch
@@ -588,7 +590,7 @@ class _NodeListViewState extends State<NodeListView>
               .valueString;
         } catch (error) {}
 
-        String urlTiket = Uri.encodeFull(AppConfig.baseUrl +
+        String urlTiket = Uri.encodeFull( this.widget.appInstanceParam.baseAppConfig.generalConfig .baseUrl +
             "/?ticketCode=" +
             ticketcodeFieldValue!.valueString!);
 
@@ -1146,6 +1148,8 @@ class _NodeListViewState extends State<NodeListView>
 
             VwApiCallResponse? apiCallResponse =
                 await RemoteApi.requestApiCall (
+                  baseUrl:  this.widget.appInstanceParam.baseAppConfig.generalConfig.baseUrl,
+                graphqlServerAddress:  this.widget.appInstanceParam.baseAppConfig.generalConfig.graphqlServerAddress,
                 apiCallId: "printReport",
                 apiCallParam: apiCallParam,
                 loginSessionId: this.widget.appInstanceParam.loginResponse!.loginSessionId!);
@@ -1230,7 +1234,7 @@ class _NodeListViewState extends State<NodeListView>
         );
 
     Widget? rootLogoPathWidget = Image.asset(
-      AppConfig.rootLogoPath,
+      this.widget.appInstanceParam.baseAppConfig.baseThemeConfig.rootLogoPath,
     );
 /*
     Widget? logoWidget =
@@ -1309,6 +1313,7 @@ class _NodeListViewState extends State<NodeListView>
             visualDensity: VisualDensity.compact,
             onPressed: () {
               Widget searchPage = NodeListView(
+                mainLogoImageAsset: this.widget.appInstanceParam.baseAppConfig.generalConfig.mainLogoPath,
                 appInstanceParam: this.widget.appInstanceParam,
                 showUserInfoIcon: false,
                 apiCallId: this.widget.apiCallId,
@@ -1629,7 +1634,7 @@ class _NodeListViewState extends State<NodeListView>
               .userInfo!
               .user
               .mainRoleUserGroupId ==
-          AppConfig.userQuoraMainRole) {
+          this.widget.appInstanceParam.baseAppConfig.generalConfig.userQuoraMainRole) {
         returnValue =
             UserInfoPagePublic (appInstanceParam: this.widget.appInstanceParam);
       } else {

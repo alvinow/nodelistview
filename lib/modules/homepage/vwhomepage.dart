@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:matrixclient2base/appconfig.dart';
 import 'package:matrixclient2base/modules/base/vwdataformat/vwrowdata/vwrowdata.dart';
 import 'package:matrixclient2base/modules/base/vwnode/vwnode.dart';
 import 'package:nodelistview/modules/homepage/vwhomepageadminticket/vwhomepageadminticket.dart';
@@ -37,15 +36,15 @@ class VwHomePage extends StatelessWidget{
         .user
         .mainRoleUserGroupId;
 
-    if (mainGroupRoleId == AppConfig.operatorticketUserGroupId)
+    if (mainGroupRoleId == this.appInstanceParam.baseAppConfig.generalConfig.operatorticketUserGroupId)
       {
           return VwHomePageOperatorTicket(appInstanceParam: this.appInstanceParam,initialIndex: this.initialIndex,formResponse: this.formResponse,containerFolderNode: this.containerFolderNode,);
       }
-    else if(mainGroupRoleId == AppConfig.appAdminUserMainRole || mainGroupRoleId=="root")
+    else if(mainGroupRoleId == this.appInstanceParam.baseAppConfig.generalConfig.appAdminUserMainRole || mainGroupRoleId=="root")
       {
         return VwHomePageAdminTicket(appInstanceParam: this.appInstanceParam,initialIndex: this.initialIndex,formResponse: this.formResponse,containerFolderNode: this.containerFolderNode,);
       }
-    else if(mainGroupRoleId == AppConfig.appUserMainRole )
+    else if(mainGroupRoleId == this.appInstanceParam.baseAppConfig.generalConfig.appUserMainRole )
     {
       return VwHomePageAdminTicket(appInstanceParam: this.appInstanceParam,initialIndex: this.initialIndex,formResponse: this.formResponse,containerFolderNode: this.containerFolderNode,);
     }

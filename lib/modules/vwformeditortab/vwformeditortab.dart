@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:matrixclient2base/appconfig.dart';
 import 'package:matrixclient2base/modules/base/vwdataformat/vwdataformattimestamp/vwdataformattimestamp.dart';
 import 'package:matrixclient2base/modules/base/vwdataformat/vwfiedvalue/vwfieldvalue.dart';
 import 'package:matrixclient2base/modules/base/vwdataformat/vwrowdata/vwrowdata.dart';
-import 'package:matrixclient2base/modules/base/vwloginresponse/vwloginresponse.dart';
 import 'package:matrixclient2base/modules/base/vwnoderequestresponse/vwnoderequestresponse.dart';
 import 'package:matrixclient2base/modules/base/vwrenderednodepackage/vwrenderednodepackage.dart';
 import 'package:nodelistview/modules/vwformeditortab/vwformparamsettingspage/vwformparamsettingspage.dart';
@@ -68,7 +66,7 @@ class _VwFormEditorTabState extends State<VwFormEditorTab> {
 
     List<Widget> _widgetOptions = <Widget>[
       VwFormPage(
-          formDefinitionFolderNodeId: AppConfig.formDefinitionFolderNodeId,
+          formDefinitionFolderNodeId: this.widget.appInstanceParam.baseAppConfig.generalConfig.formDefinitionFolderNodeId,
          appInstanceParam: widget.appInstanceParam,
           formDefinition: this.widget.formParam,
           formResponse: VwFormDefinitionUtil.createBlankRowDataFromFormDefinition(formDefinition: this.widget.formParam, ownerUserId: widget.appInstanceParam.loginResponse!.userInfo!.user.recordId),
@@ -150,12 +148,15 @@ class _VwFormEditorTabState extends State<VwFormEditorTab> {
     try
     {
       final VwRowData apiCallParam = VwRowData(timestamp: VwDateUtil.nowTimestamp(),recordId: Uuid().v4(),fields: <VwFieldValue>[
-        VwFieldValue(fieldName: "nodeId",valueString: AppConfig.formDefinitionFolderNodeId),
+        VwFieldValue(fieldName: "nodeId",valueString: this.widget.appInstanceParam.baseAppConfig.generalConfig.formDefinitionFolderNodeId),
         VwFieldValue(fieldName: "depth",valueNumber: 1),
         VwFieldValue(fieldName: "depth1FilterObject",valueTypeId: VwFieldValue.vatObject,value: {"content.contentContext.contentClassName":"VwFormResponse","content.contentContext.contentRefClassName":"VwFormParam","content.contentContext.contentRefClassInstanceId":this.currentFormParam.recordId})
       ]);
 
-      VwNodeRequestResponse nodeRequestResponse= await RemoteApi.nodeRequestApiCall(apiCallId: "getNodes", apiCallParam: apiCallParam, loginSessionId: widget.appInstanceParam.loginResponse!.loginSessionId!);
+      VwNodeRequestResponse nodeRequestResponse= await RemoteApi.nodeRequestApiCall(
+          baseUrl: this.widget.appInstanceParam.baseUrl,
+          graphqlServerAddress: this.widget.appInstanceParam.baseAppConfig.generalConfig.graphqlServerAddress,
+          apiCallId: "getNodes", apiCallParam: apiCallParam, loginSessionId: widget.appInstanceParam.loginResponse!.loginSessionId!);
 
       if(nodeRequestResponse.renderedNodePackage!=null)
         {

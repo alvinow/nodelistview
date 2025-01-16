@@ -44,7 +44,13 @@ class FormAdminPage extends StatelessWidget {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text('Uploading Data...')));
 
-        await VwNodeStoreOnHive(boxName: AppConfig.unsyncedRecordFieldname)
+        await VwNodeStoreOnHive(
+          unsyncedRecordFieldname: this.appInstanceParam.baseAppConfig.generalConfig.unsyncedRecordFieldname,
+          loggedInUser: this.appInstanceParam.baseAppConfig.generalConfig.loggedInUser,
+          appTitle: this.appInstanceParam.baseAppConfig.generalConfig.appTitle,
+          appversion: this.appInstanceParam.baseAppConfig.generalConfig.appVersion,
+            graphqlServerAddress: this.appInstanceParam.baseAppConfig.generalConfig.graphqlServerAddress,
+            boxName: this.appInstanceParam.baseAppConfig.generalConfig.unsyncedRecordFieldname)
             .syncToServer(loginSessionId: this.appInstanceParam.loginResponse!.loginSessionId!);
       },
     );
@@ -63,6 +69,7 @@ class FormAdminPage extends StatelessWidget {
     ]);
     
     return NodeListView(
+      mainLogoImageAsset: this.appInstanceParam.baseAppConfig.generalConfig.mainLogoPath,
   appInstanceParam: appInstanceParam,
 
         apiCallId: "getNodes",

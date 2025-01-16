@@ -13,6 +13,8 @@ class NodeListViewLib {
 
   static Future<VwNodeRequestResponse> fetchRenderedNode(
       {
+        required String baseUrl,
+        required String graphqlServerAddress,
         required VwRowData apiCallParam,
         required String apiCallId,
       required PagingController<int, VwNode > pagingController,
@@ -42,7 +44,10 @@ class NodeListViewLib {
       }
 
 
-      returnValue = await RemoteApi.nodeRequestApiCall (apiCallId: apiCallId,
+      returnValue = await RemoteApi.nodeRequestApiCall (
+          baseUrl: baseUrl,
+          graphqlServerAddress: graphqlServerAddress,
+          apiCallId: apiCallId,
           apiCallParam: apiCallParam, loginSessionId: loginSessionId);
 
       if (returnValue.apiCallResponse != null) {

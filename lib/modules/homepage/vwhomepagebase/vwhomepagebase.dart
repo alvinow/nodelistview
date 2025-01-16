@@ -41,7 +41,7 @@ class VwHomePageBase extends StatefulWidget {
     }
 
     if (userHomeFolderNodeId == null) {
-      userHomeFolderNodeId = AppConfig.rootFolderNodeId;
+      userHomeFolderNodeId = appInstanceParam.baseAppConfig.generalConfig.rootFolderNodeId;
     }
 
     VwNode? homeFolderNode;
@@ -61,9 +61,10 @@ class VwHomePageBase extends StatefulWidget {
           label: title,
         ),
         tabPage: VwFormResponseUserPage(
+          mainLogoImageAsset: appInstanceParam.baseAppConfig.generalConfig.mainLogoPath,
           mainLogoTextCaption: homeFolderNode != null
               ? homeFolderNode.displayName
-              : AppConfig.appTitle,
+              : appInstanceParam.baseAppConfig.generalConfig.appTitle,
           folderNodeId: userHomeFolderNodeId,
           key: UniqueKey(),
           appInstanceParam: appInstanceParam,
@@ -74,10 +75,10 @@ class VwHomePageBase extends StatefulWidget {
     required VwAppInstanceParam appInstanceParam,
     String title = "Home",
     double iconSize = 26,
-    String userHomeFolderNodeId = AppConfig.rootFolderNodeId,
+    String? userHomeFolderNodeId
   }) {
     if (userHomeFolderNodeId == null) {
-      userHomeFolderNodeId = AppConfig.rootFolderNodeId;
+      userHomeFolderNodeId = appInstanceParam.baseAppConfig.generalConfig.rootFolderNodeId;
     }
 
     VwNode? homeFolderNode;
@@ -97,9 +98,10 @@ class VwHomePageBase extends StatefulWidget {
           label: title,
         ),
         tabPage: VwFormResponseUserPage(
+          mainLogoImageAsset: appInstanceParam.baseAppConfig.generalConfig.mainLogoPath,
           mainLogoTextCaption: homeFolderNode != null
               ? homeFolderNode.displayName
-              : AppConfig.appTitle,
+              : appInstanceParam.baseAppConfig.generalConfig.appTitle,
           folderNodeId: userHomeFolderNodeId,
           key: UniqueKey(),
           appInstanceParam: appInstanceParam,
@@ -126,6 +128,7 @@ class VwHomePageBase extends StatefulWidget {
           label: unselectedCaption,
         ),
         tabPage: VwFormResponseUserPage(
+          mainLogoImageAsset: appInstanceParam.baseAppConfig.generalConfig.mainLogoPath,
           enableCreateRecord: enableCreateRecord,
           mainLogoTextCaption: rootFolderDisplayName,
           folderNodeId: rootFolderNodeId,

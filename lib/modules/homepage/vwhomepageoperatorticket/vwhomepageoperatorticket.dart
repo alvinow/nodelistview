@@ -67,7 +67,9 @@ class VwHomePageOperatorTicket extends StatelessWidget {
               size: VwHomePageOperatorTicket.iconSize),
           label: 'Dashboard',
         ),
-        tabPage: Dashboard2024() );
+        tabPage: Dashboard2024(
+          appInstanceParam: appInstanceParam,
+        ) );
   }
 
   static VwHomeTabItem createLHPHomeTabItem(

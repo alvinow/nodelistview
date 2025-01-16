@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:matrixclient2base/appconfig.dart';
 import 'package:matrixclient2base/modules/base/vwapicall/apivirtualnode/apivirtualnode.dart';
 import 'package:matrixclient2base/modules/base/vwdataformat/vwrowdata/vwrowdata.dart';
 import 'package:matrixclient2base/modules/base/vwnode/vwnode.dart';
@@ -91,7 +90,7 @@ class _VwHomePageUnityState extends State<VwHomePageUnity> {
             unselectedIcon: Icons.explore_outlined,
             selectedCaption: "Jelajahi",
             unselectedCaption: "Jelajahi"));
-      } else if (mainGroupRoleId == AppConfig.adminticketMainRoleUserGroupId) {
+      } else if (mainGroupRoleId == this.widget.appInstanceParam.baseAppConfig.generalConfig.adminticketMainRoleUserGroupId) {
         homeTabItemList.add(createFormResponseUserPage());
 
         if (widget.appInstanceParam.loginResponse!.userInfo!.user!
@@ -104,7 +103,7 @@ class _VwHomePageUnityState extends State<VwHomePageUnity> {
         }
       }
 
-      if (mainGroupRoleId == AppConfig .entryDatAdminUserGroupId) {
+      if (mainGroupRoleId == this.widget.appInstanceParam.baseAppConfig.generalConfig.entryDatAdminUserGroupId) {
         homeTabItemList.add(createFormResponseUserPage());
 
         if (widget.appInstanceParam.loginResponse!.userInfo!.user!
@@ -130,7 +129,7 @@ class _VwHomePageUnityState extends State<VwHomePageUnity> {
         }
       }
 
-      if (mainGroupRoleId == AppConfig.entryDataOperatorUserGroupId) {
+      if (mainGroupRoleId == this.widget.appInstanceParam.baseAppConfig.generalConfig.entryDataOperatorUserGroupId) {
         homeTabItemList.add(createFormResponseUserPage());
         if (widget.appInstanceParam.loginResponse!.userInfo!.user!
                 .organizationId ==
@@ -141,11 +140,11 @@ class _VwHomePageUnityState extends State<VwHomePageUnity> {
           homeTabItemList.add(createDashboardOperatorTicketHomeTabItem());
         }
       } else if (mainGroupRoleId ==
-          AppConfig.adminPauddikdasmenSpiUserGroupRecordId) {
+          this.widget.appInstanceParam.baseAppConfig.generalConfig.adminPauddikdasmenSpiUserGroupRecordId) {
         homeTabItemList.add(createFormAdmin());
         homeTabItemList.add(createDashboardOperatorTicketHomeTabItem());
 
-      } else if (mainGroupRoleId == AppConfig.operatorticketUserGroupId) {
+      } else if (mainGroupRoleId == this.widget.appInstanceParam.baseAppConfig.generalConfig.operatorticketUserGroupId) {
         homeTabItemList.add(createToDoListOperatorTicketHomeTabItem());
         homeTabItemList.add(createMonitoringOperatorTicketHomeTabItem());
         homeTabItemList.add(createDashboardOperatorTicketHomeTabItem());
@@ -213,7 +212,7 @@ class _VwHomePageUnityState extends State<VwHomePageUnity> {
         tabPage: VwSpecifiedFormSubmit(
             containerFolderNodeId: homeFolderNode != null
                 ? homeFolderNode.recordId
-                : AppConfig.rootFolderNodeId,
+                : this.widget.appInstanceParam.baseAppConfig.generalConfig.rootFolderNodeId,
             containerFolderNode: homeFolderNode,
             appInstanceParam: widget.appInstanceParam,
             formResponse: widget.formResponse!,
@@ -265,7 +264,7 @@ class _VwHomePageUnityState extends State<VwHomePageUnity> {
           label: 'Chart',
         ),
         tabPage: ChartNodeListView(
-          folderNodeId: AppConfig.cableExtractionChartNodeId,
+          folderNodeId: this.widget.appInstanceParam.baseAppConfig.generalConfig.cableExtractionChartNodeId,
           pageTitleCaption: "Chart",
           key: UniqueKey(),
           appInstanceParam: widget.appInstanceParam,
@@ -311,6 +310,7 @@ class _VwHomePageUnityState extends State<VwHomePageUnity> {
           label: unselectedCaption,
         ),
         tabPage: VwFormResponseUserPage(
+          mainLogoImageAsset: this.widget.appInstanceParam.baseAppConfig.generalConfig.mainLogoPath,
           enableCreateRecord: enableCreateRecord,
           mainLogoTextCaption: rootFolderDisplayName,
           folderNodeId: rootFolderNodeId,
@@ -331,7 +331,7 @@ class _VwHomePageUnityState extends State<VwHomePageUnity> {
     }
 
     if (userHomeFolderNodeId == null) {
-      userHomeFolderNodeId = AppConfig.rootFolderNodeId;
+      userHomeFolderNodeId = this.widget.appInstanceParam.baseAppConfig.generalConfig.rootFolderNodeId;
     }
 
     VwNode? homeFolderNode;
@@ -351,9 +351,10 @@ class _VwHomePageUnityState extends State<VwHomePageUnity> {
           label: 'Home',
         ),
         tabPage: VwFormResponseUserPage(
+          mainLogoImageAsset: this.widget.appInstanceParam.baseAppConfig.generalConfig.mainLogoPath,
           mainLogoTextCaption: homeFolderNode != null
               ? homeFolderNode.displayName
-              : AppConfig.appTitle,
+              :  this.widget.appInstanceParam.baseAppConfig.generalConfig.appTitle,
           folderNodeId: userHomeFolderNodeId,
           key: UniqueKey(),
           appInstanceParam: widget.appInstanceParam,
