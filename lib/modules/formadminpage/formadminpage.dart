@@ -49,7 +49,8 @@ class FormAdminPage extends StatelessWidget {
           loggedInUser: this.appInstanceParam.baseAppConfig.generalConfig.loggedInUser,
           appTitle: this.appInstanceParam.baseAppConfig.generalConfig.appTitle,
           appversion: this.appInstanceParam.baseAppConfig.generalConfig.appVersion,
-            graphqlServerAddress: this.appInstanceParam.baseAppConfig.generalConfig.graphqlServerAddress,
+            baseUrl: this.appInstanceParam.baseAppConfig.generalConfig.baseUrl,
+            //graphqlServerAddress: this.appInstanceParam.baseAppConfig.generalConfig.graphqlServerAddress,
             boxName: this.appInstanceParam.baseAppConfig.generalConfig.unsyncedRecordFieldname)
             .syncToServer(loginSessionId: this.appInstanceParam.loginResponse!.loginSessionId!);
       },

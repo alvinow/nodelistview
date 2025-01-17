@@ -1683,7 +1683,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: dffeb80afa7988b433876c58bcda39dae7eafd5f
+      resolved-ref: b71a6bdc9c54f7ca588fe19fd9301a9c5d796813
       url: "https://github.com/alvinow/vwform.git"
     source: git
     version: "1.0.0+1"
@@ -1692,7 +1692,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "06dd63c5aa44c31aea9077d53fb8d68954dd236c"
+      resolved-ref: "22b85f8eebdc922c84538e3d64baee215f73f9ad"
       url: "https://github.com/alvinow/vwnodestoreonhive.git"
     source: git
     version: "1.0.0+1"
@@ -1701,7 +1701,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "00e77f8611161cdfb06631c1d44314646b992044"
+      resolved-ref: bc7b7dbe99d6720f0d995f3b2aad3ae94355a987
       url: "https://github.com/alvinow/vwutil.git"
     source: git
     version: "1.0.0+1"
