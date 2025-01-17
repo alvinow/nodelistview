@@ -154,7 +154,7 @@ class _VwFormEditorTabState extends State<VwFormEditorTab> {
       ]);
 
       VwNodeRequestResponse nodeRequestResponse= await RemoteApi.nodeRequestApiCall(
-          baseUrl: this.widget.appInstanceParam.baseUrl,
+          baseUrl: this.widget.appInstanceParam.baseAppConfig.generalConfig.baseUrl,
           graphqlServerAddress: this.widget.appInstanceParam.baseAppConfig.generalConfig.graphqlServerAddress,
           apiCallId: "getNodes", apiCallParam: apiCallParam, loginSessionId: widget.appInstanceParam.loginResponse!.loginSessionId!);
 

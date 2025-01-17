@@ -325,10 +325,10 @@ packages:
     dependency: transitive
     description:
       name: dropdown_search
-      sha256: "8c96aaf8d0c0d4307804b28da73866e5a0fc94fd8e6942eceab896450aaa4999"
+      sha256: c29b3e5147a82a06a4a08b3b574c51cb48cc17ad89893d53ee72a6f86643622e
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.1"
+    version: "6.0.2"
   encrypt:
     dependency: transitive
     description:
@@ -885,7 +885,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: e0a3c3d96434b4d8b8287bc310e1b4a1f58978f1
+      resolved-ref: e92cb9085a1cd31d182380d036b38a1f1b237e06
       url: "https://github.com/alvinow/matrixclient2base.git"
     source: git
     version: "1.0.0+1"
@@ -1683,7 +1683,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "41cfa0c7faf9dec83405ea9022880cbc7ab360f3"
+      resolved-ref: dffeb80afa7988b433876c58bcda39dae7eafd5f
       url: "https://github.com/alvinow/vwform.git"
     source: git
     version: "1.0.0+1"
