@@ -1683,7 +1683,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: b71a6bdc9c54f7ca588fe19fd9301a9c5d796813
+      resolved-ref: "1fdfed873349d43371a599739aee31c1ca78e510"
       url: "https://github.com/alvinow/vwform.git"
     source: git
     version: "1.0.0+1"
@@ -1701,7 +1701,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: bc7b7dbe99d6720f0d995f3b2aad3ae94355a987
+      resolved-ref: fb2690419e9a7d368ef2f5d668b1c6f33bc555c4
       url: "https://github.com/alvinow/vwutil.git"
     source: git
     version: "1.0.0+1"
