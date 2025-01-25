@@ -1400,7 +1400,14 @@ class _NodeListViewState extends State<NodeListView>
 
     Widget userInfoIcon = Container();
     if (widget.showUserInfoIcon == true) {
-      userInfoIcon = IconButton(
+      userInfoIcon =Container(
+          decoration: BoxDecoration(
+            color:Colors.white,
+            shape: BoxShape.circle,
+          ),
+
+          child: IconButton(
+
           visualDensity: VisualDensity.compact,
           onPressed: () {
             Navigator.push(
