@@ -1413,7 +1413,7 @@ class _NodeListViewState extends State<NodeListView>
                           child: getUserInfoPageNodeListView()))),
             );
           },
-          icon:Icon(Icons.person_pin, size: 35,) );
+          icon:Icon(Icons.person_pin, size: 40,) );
 
       actionWidgetList.add(userInfoIcon);
     }
