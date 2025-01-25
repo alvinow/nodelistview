@@ -1395,6 +1395,9 @@ class _NodeListViewState extends State<NodeListView>
       );
       actionWidgetList.add(notificationIcon);
     }
+    Widget profilePictureCurrentUser=ProfilePictureUtil.getUserProfilePictureOfLoggedInUser(
+        appInstanceParam: this.widget.appInstanceParam);
+
     Widget userInfoIcon = Container();
     if (widget.showUserInfoIcon == true) {
       userInfoIcon = IconButton(
@@ -1410,8 +1413,7 @@ class _NodeListViewState extends State<NodeListView>
                           child: getUserInfoPageNodeListView()))),
             );
           },
-          icon: ProfilePictureUtil.getUserProfilePictureOfLoggedInUser(
-              appInstanceParam: this.widget.appInstanceParam));
+          icon:Icon(Icons.person_pin) );
 
       actionWidgetList.add(userInfoIcon);
     }
