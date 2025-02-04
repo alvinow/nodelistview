@@ -1140,6 +1140,7 @@ class _NodeListViewState extends State<NodeListView>
             print("Printing " + nodeId);
 
             this.printKey=Key(Uuid().v4());
+
             await Navigator.push(
               context,
               MaterialPageRoute(

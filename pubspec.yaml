@@ -41,6 +41,10 @@ dependencies:
   font_awesome_flutter:
   go_router:
   qr_flutter:
+  vwform:
+    git:
+      url: https://github.com/alvinow/vwform.git
+      ref: main
   vwnodestoreonhive:
     git:
       url: https://github.com/alvinow/vwnodestoreonhive.git
@@ -48,10 +52,6 @@ dependencies:
   matrixclient2base:
     git:
       url: https://github.com/alvinow/matrixclient2base.git
-      ref: main
-  vwform:
-    git:
-      url: https://github.com/alvinow/vwform.git
       ref: main
   vwutil:
     git:
