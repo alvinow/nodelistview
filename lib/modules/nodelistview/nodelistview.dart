@@ -1175,7 +1175,7 @@ class _NodeListViewState extends State<NodeListView>
 
   Widget getPrintWidget()
   {
-    return InkWell(child: Icon(Icons.print),onTap: () async{
+    return InkWell(child: Icon(Icons.print,color:Colors.green  ),onTap: () async{
       try {
         if (this.currentNodeRequestResponse.renderedNodePackage != null
             &&
