@@ -8,7 +8,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_fadein/flutter_fadein.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:matrixclient2base/modules/base/vwapicall/vwapicallresponse/vwapicallresponse.dart';
 import 'package:matrixclient2base/modules/base/vwdataformat/vwfiedvalue/vwfieldvalue.dart';
 import 'package:matrixclient2base/modules/base/vwdataformat/vwrowdata/vwrowdata.dart';
 import 'package:matrixclient2base/modules/base/vwlinknode/vwlinknode.dart';
@@ -20,7 +19,6 @@ import 'package:uuid/uuid.dart';
 import 'package:vwform/modules/formdefinitionlib/formdefinitionlib.dart';
 import 'package:vwform/modules/listviewtitlecolumn/listviewtitlecolumn.dart';
 import 'package:vwform/modules/pagecoordinator/bloc/pagecoordinator_bloc.dart';
-import 'package:vwform/modules/remoteapi/remote_api.dart';
 import 'package:vwform/modules/vwappinstanceparam/vwappinstanceparam.dart';
 import 'package:vwform/modules/vwform/vwform.dart';
 import 'package:vwform/modules/vwform/vwformdefinition/vwformdefinition.dart';
@@ -230,6 +228,7 @@ class _NodeListViewState extends State<NodeListView>
   late bool requestDownloadTicketShowEvent;
   late int displayedRecordCount;
   late ScrollController _scrollViewController;
+  late Key printKey;
 
   Widget getLoginButton() {
     return IconButton(
@@ -250,6 +249,7 @@ class _NodeListViewState extends State<NodeListView>
 
   @override
   void initState() {
+    this.printKey=Key(Uuid().v4());
     this.questiontBoxKey = UniqueKey();
     this.commentBoxKey = UniqueKey();
     this.listKey = UniqueKey();
@@ -1133,9 +1133,26 @@ class _NodeListViewState extends State<NodeListView>
         ) {
           if (this.currentNodeRequestResponse.renderedNodePackage!.rootNode!
               .nodeType == VwNode.ntnFolder ) {
+
+
+
             String nodeId = this.currentNodeRequestResponse.renderedNodePackage!.rootNode!.recordId;
             print("Printing " + nodeId);
 
+            this.printKey=Key(Uuid().v4());
+            await Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => VwNodeSubmitPage(
+                    parentNodeId: "response_requestdownloadreporttindaklanjutformdefinition",
+                    key: this.printKey,
+                    formDefinitionIdList: ["requestdownloadreporttindaklanjutformdefinition"],
+                    appInstanceParam: widget.appInstanceParam,
+                    //refreshDataOnParentFunction:this.implementRefreshDataOnParentFunction,
+                  )),
+            );
+
+            /*
 
             VwRowData apiCallParam=VwRowData(recordId: Uuid().v4(),fields: [VwFieldValue(fieldName: "nodeId",valueString: nodeId)]);
 
@@ -1173,7 +1190,7 @@ class _NodeListViewState extends State<NodeListView>
 
                   }
               }
-
+              */
 
           }
 
