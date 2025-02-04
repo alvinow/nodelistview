@@ -41,6 +41,7 @@ import 'package:vwutil/modules/util/vwdateutil.dart';
 import 'nodelistviewlib.dart';
 import 'dart:convert';
 
+
 typedef GetFloatingActionButtonFunction = Widget Function(
     {required BuildContext context,
     required VwAppInstanceParam appInstanceParam,
@@ -1211,6 +1212,15 @@ class _NodeListViewState extends State<NodeListView>
                     //refreshDataOnParentFunction:this.implementRefreshDataOnParentFunction,
                   )),
             );
+
+
+            print("last SubmitPageState: "+this.lastNodeSubmitPageState.toString());
+
+
+            if(this.lastNodeUpsyncResult!=null ) {
+              print("last SubmitPageState: " +
+                  jsonEncode(this.lastNodeUpsyncResult));
+            }
 
             if( this.lastNodeUpsyncResult!=null &&  this.lastNodeSubmitPageState==VwNodeSubmitPage.nspSuccessSyncingNode)
               {
