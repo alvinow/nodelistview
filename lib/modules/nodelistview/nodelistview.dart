@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_fadein/flutter_fadein.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:matrixclient2base/modules/base/vwapicall/vwapicallresponse/vwapicallresponse.dart';
 import 'package:matrixclient2base/modules/base/vwdataformat/vwfiedvalue/vwfieldvalue.dart';
 import 'package:matrixclient2base/modules/base/vwdataformat/vwrowdata/vwrowdata.dart';
 import 'package:matrixclient2base/modules/base/vwlinknode/vwlinknode.dart';
@@ -19,11 +20,13 @@ import 'package:uuid/uuid.dart';
 import 'package:vwform/modules/formdefinitionlib/formdefinitionlib.dart';
 import 'package:vwform/modules/listviewtitlecolumn/listviewtitlecolumn.dart';
 import 'package:vwform/modules/pagecoordinator/bloc/pagecoordinator_bloc.dart';
+import 'package:vwform/modules/remoteapi/remote_api.dart';
 import 'package:vwform/modules/vwappinstanceparam/vwappinstanceparam.dart';
 import 'package:vwform/modules/vwform/vwform.dart';
 import 'package:vwform/modules/vwform/vwformdefinition/vwformdefinition.dart';
 import 'package:vwform/modules/vwformpage/vwdefaultformpage.dart';
 import 'package:vwform/modules/vwmessenger/vwheadmessagemessenger.dart';
+import 'package:vwform/modules/vwnodeupsyncresult/vwnodeupsyncresult.dart';
 import 'package:vwform/modules/vwusernotificationpage/vwusernotificationpage.dart';
 import 'package:vwform/modules/vwwidget/materialtransparentroute/materialtransparentroute.dart';
 import 'package:vwform/modules/vwwidget/userinfopage/tabuserinfopage.dart';
@@ -226,9 +229,12 @@ class _NodeListViewState extends State<NodeListView>
   late Key scannerKey;
   final GlobalKey<ScaffoldState> _globalKey = GlobalKey();
   late bool requestDownloadTicketShowEvent;
-  late int displayedRecordCount;
+  late int displayedRecordColunt;
   late ScrollController _scrollViewController;
   late Key printKey;
+  late int displayedRecordCount;
+  String? lastNodeSubmitPageState;
+  VwNodeUpsyncResult? lastNodeUpsyncResult;
 
   Widget getLoginButton() {
     return IconButton(
@@ -1117,6 +1123,56 @@ class _NodeListViewState extends State<NodeListView>
     return returnValue;
   }
 
+  void implementNodeSubmitPageNodeUpsyncResult({required VwNodeUpsyncResult nodeUpsyncResult}){
+    this.lastNodeUpsyncResult=nodeUpsyncResult;
+  }
+
+ void implementNodeSubmitPageStateChanged({required String pageState}){
+   this.lastNodeSubmitPageState=pageState;
+  }
+
+  Future<void> showResponseResult({required String nodeId}) async{
+
+
+    VwRowData apiCallParam=VwRowData(recordId: Uuid().v4(),fields: [VwFieldValue(fieldName: "nodeId",valueString: nodeId)]);
+
+    Navigator.push(
+      context,
+      MaterialTransparentRoute (
+          builder: (context) => WaitDialogWidget() ),
+    );
+
+    VwApiCallResponse? apiCallResponse =
+    await RemoteApi.requestApiCall (
+        baseUrl:  this.widget.appInstanceParam.baseAppConfig.generalConfig.baseUrl,
+        graphqlServerAddress:  this.widget.appInstanceParam.baseAppConfig.generalConfig.graphqlServerAddress,
+        apiCallId: "printReport",
+        apiCallParam: apiCallParam,
+        loginSessionId: this.widget.appInstanceParam.loginResponse!.loginSessionId!);
+
+    Navigator.of(context).pop();
+
+    if(apiCallResponse!=null && apiCallResponse!.responseStatusCode==200)
+    {
+      if(apiCallResponse!.valueResponseClassEncodedJson!=null)
+      {
+        RemoteApi.decompressClassEncodedJson(apiCallResponse!.valueResponseClassEncodedJson!);
+
+        VwNode printedNode= VwNode.fromJson(apiCallResponse!.valueResponseClassEncodedJson!.data!);
+
+        Widget printedPage=  VwNodeSubmitPage( appInstanceParam: widget.appInstanceParam, node: printedNode,parentNodeId: printedNode!.parentNodeId!,);
+
+        await Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => printedPage ),
+        );
+
+      }
+    }
+
+  }
+
   Widget getPrintWidget()
   {
     return InkWell(child: Icon(Icons.print),onTap: () async{
@@ -1140,11 +1196,14 @@ class _NodeListViewState extends State<NodeListView>
             print("Printing " + nodeId);
 
             this.printKey=Key(Uuid().v4());
-
+            this.lastNodeSubmitPageState=VwNodeSubmitPage.nspLoadingInitData;
             await Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => VwNodeSubmitPage(
+                    nodeSubmitPageUpsyncResult: this.implementNodeSubmitPageNodeUpsyncResult,
+                    nodeSubmitPageStateChanged: this.implementNodeSubmitPageStateChanged,
+
                     parentNodeId: "response_requestdownloadreporttindaklanjutformdefinition",
                     key: this.printKey,
                     formDefinitionIdList: ["requestdownloadreporttindaklanjutformdefinition"],
@@ -1152,6 +1211,18 @@ class _NodeListViewState extends State<NodeListView>
                     //refreshDataOnParentFunction:this.implementRefreshDataOnParentFunction,
                   )),
             );
+
+            if( this.lastNodeUpsyncResult!=null &&  this.lastNodeSubmitPageState==VwNodeSubmitPage.nspSuccessSyncingNode)
+              {
+                if(this.lastNodeUpsyncResult!.syncResult.createdRowRecordIdList.length>0)
+                  {
+                    String resultNodeId=this.lastNodeUpsyncResult!.syncResult.createdRowRecordIdList[0];
+
+                    await this.showResponseResult(nodeId: resultNodeId);
+
+                  }
+
+              }
 
             /*
 
