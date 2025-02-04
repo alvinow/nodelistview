@@ -1132,50 +1132,22 @@ class _NodeListViewState extends State<NodeListView>
    this.lastNodeSubmitPageState=pageState;
   }
 
-  Future<void> showResponseResult({required String nodeId}) async{
+  Future<void> showResponseResult({required String nodeId,required VwNode printedNode}) async{
   try {
-    VwRowData apiCallParam = VwRowData(recordId: Uuid().v4(),
-        fields: [VwFieldValue(fieldName: "nodeId", valueString: nodeId)]);
 
-    Navigator.push(
+    print("Initiating Response Result Node Id= "+nodeId);
+
+
+    Widget printedPage = VwNodeSubmitPage(
+      appInstanceParam: widget.appInstanceParam,
+      node: printedNode,
+      parentNodeId: printedNode!.parentNodeId!,);
+
+    await Navigator.push(
       context,
-      MaterialTransparentRoute(
-          builder: (context) => WaitDialogWidget()),
+      MaterialPageRoute(
+          builder: (context) => printedPage),
     );
-
-    VwApiCallResponse? apiCallResponse =
-    await RemoteApi.requestApiCall(
-        baseUrl: this.widget.appInstanceParam.baseAppConfig.generalConfig
-            .baseUrl,
-        graphqlServerAddress: this.widget.appInstanceParam.baseAppConfig
-            .generalConfig.graphqlServerAddress,
-        apiCallId: "printReport",
-        apiCallParam: apiCallParam,
-        loginSessionId: this.widget.appInstanceParam.loginResponse!
-            .loginSessionId!);
-
-    Navigator.of(context).pop();
-
-    if (apiCallResponse != null && apiCallResponse!.responseStatusCode == 200) {
-      if (apiCallResponse!.valueResponseClassEncodedJson != null) {
-        RemoteApi.decompressClassEncodedJson(
-            apiCallResponse!.valueResponseClassEncodedJson!);
-
-        VwNode printedNode = VwNode.fromJson(
-            apiCallResponse!.valueResponseClassEncodedJson!.data!);
-
-        Widget printedPage = VwNodeSubmitPage(
-          appInstanceParam: widget.appInstanceParam,
-          node: printedNode,
-          parentNodeId: printedNode!.parentNodeId!,);
-
-        await Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => printedPage),
-        );
-      }
-    }
   }
   catch(error)
     {
@@ -1244,7 +1216,16 @@ class _NodeListViewState extends State<NodeListView>
 
                     print("Response Node Id= "+resultNodeId);
 
-                    await this.showResponseResult(nodeId: resultNodeId);
+                    if(this.lastNodeUpsyncResult!.responseRequestNodeList!=null && this.lastNodeUpsyncResult!.responseRequestNodeList!.length>0)
+                      {
+                        VwNode printedNode=this.lastNodeUpsyncResult!.responseRequestNodeList![0];
+
+
+
+                        await this.showResponseResult(nodeId: resultNodeId,printedNode: printedNode);
+                      }
+
+
 
                   }
 
