@@ -1133,44 +1133,55 @@ class _NodeListViewState extends State<NodeListView>
   }
 
   Future<void> showResponseResult({required String nodeId}) async{
-
-
-    VwRowData apiCallParam=VwRowData(recordId: Uuid().v4(),fields: [VwFieldValue(fieldName: "nodeId",valueString: nodeId)]);
+  try {
+    VwRowData apiCallParam = VwRowData(recordId: Uuid().v4(),
+        fields: [VwFieldValue(fieldName: "nodeId", valueString: nodeId)]);
 
     Navigator.push(
       context,
-      MaterialTransparentRoute (
-          builder: (context) => WaitDialogWidget() ),
+      MaterialTransparentRoute(
+          builder: (context) => WaitDialogWidget()),
     );
 
     VwApiCallResponse? apiCallResponse =
-    await RemoteApi.requestApiCall (
-        baseUrl:  this.widget.appInstanceParam.baseAppConfig.generalConfig.baseUrl,
-        graphqlServerAddress:  this.widget.appInstanceParam.baseAppConfig.generalConfig.graphqlServerAddress,
+    await RemoteApi.requestApiCall(
+        baseUrl: this.widget.appInstanceParam.baseAppConfig.generalConfig
+            .baseUrl,
+        graphqlServerAddress: this.widget.appInstanceParam.baseAppConfig
+            .generalConfig.graphqlServerAddress,
         apiCallId: "printReport",
         apiCallParam: apiCallParam,
-        loginSessionId: this.widget.appInstanceParam.loginResponse!.loginSessionId!);
+        loginSessionId: this.widget.appInstanceParam.loginResponse!
+            .loginSessionId!);
 
     Navigator.of(context).pop();
 
-    if(apiCallResponse!=null && apiCallResponse!.responseStatusCode==200)
-    {
-      if(apiCallResponse!.valueResponseClassEncodedJson!=null)
-      {
-        RemoteApi.decompressClassEncodedJson(apiCallResponse!.valueResponseClassEncodedJson!);
+    if (apiCallResponse != null && apiCallResponse!.responseStatusCode == 200) {
+      if (apiCallResponse!.valueResponseClassEncodedJson != null) {
+        RemoteApi.decompressClassEncodedJson(
+            apiCallResponse!.valueResponseClassEncodedJson!);
 
-        VwNode printedNode= VwNode.fromJson(apiCallResponse!.valueResponseClassEncodedJson!.data!);
+        VwNode printedNode = VwNode.fromJson(
+            apiCallResponse!.valueResponseClassEncodedJson!.data!);
 
-        Widget printedPage=  VwNodeSubmitPage( appInstanceParam: widget.appInstanceParam, node: printedNode,parentNodeId: printedNode!.parentNodeId!,);
+        Widget printedPage = VwNodeSubmitPage(
+          appInstanceParam: widget.appInstanceParam,
+          node: printedNode,
+          parentNodeId: printedNode!.parentNodeId!,);
 
         await Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => printedPage ),
+              builder: (context) => printedPage),
         );
-
       }
     }
+  }
+  catch(error)
+    {
+      print("error catched on void implementNodeSubmitPageStateChanged({required String pageState}): "+error.toString());
+    }
+
 
   }
 
@@ -1218,15 +1229,20 @@ class _NodeListViewState extends State<NodeListView>
 
 
             if(this.lastNodeUpsyncResult!=null ) {
-              print("last SubmitPageState: " +
+              print("last UpsyncResult: " +
                   jsonEncode(this.lastNodeUpsyncResult));
             }
 
             if( this.lastNodeUpsyncResult!=null &&  this.lastNodeSubmitPageState==VwNodeSubmitPage.nspSuccessSyncingNode)
               {
+
                 if(this.lastNodeUpsyncResult!.syncResult.createdRowRecordIdList.length>0)
                   {
+
+
                     String resultNodeId=this.lastNodeUpsyncResult!.syncResult.createdRowRecordIdList[0];
+
+                    print("Response Node Id= "+resultNodeId);
 
                     await this.showResponseResult(nodeId: resultNodeId);
 
