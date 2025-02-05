@@ -261,10 +261,10 @@ packages:
     dependency: transitive
     description:
       name: date_field
-      sha256: "921246e5e8fb8e22c82e234de48dde27f9c739071a38dac666258909fd2f7b14"
+      sha256: "5714b1ac0ba1c860877b3040601a6fd20cb846042c9ae6d8216ffede422d43d1"
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.0"
+    version: "6.0.3+1"
   device_info:
     dependency: transitive
     description:
@@ -1683,7 +1683,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "67757b412973f0416619c12e8b72ededd3db16a6"
+      resolved-ref: "07630fa4c016eed367a30e74c20dce0321678cf9"
       url: "https://github.com/alvinow/vwform.git"
     source: git
     version: "1.0.0+1"
