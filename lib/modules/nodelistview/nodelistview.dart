@@ -129,6 +129,7 @@ class NodeListView extends StatefulWidget {
       this.isListReverse = false,
       this.margin = const EdgeInsets.fromLTRB(10, 65, 0, 5),
       this.backgroundColor = Colors.transparent,
+        this.showPrintButton=true,
       this.excludedRow = const []});
 
   static const String mlaLeft = "mlaLeft";
@@ -188,6 +189,7 @@ class NodeListView extends StatefulWidget {
   final String? mainLogoTextCaption;
   final String mainLogoImageAsset;
   final bool showRootLogoPath;
+  final bool showPrintButton;
   final String mainLogoAlignment;
   final double toolbarHeight;
   final double toolbarPadding;
@@ -1395,7 +1397,9 @@ class _NodeListViewState extends State<NodeListView>
       actionWidgetList.add(downloadTicketShowEventData);
     }
 
-    actionWidgetList.add(this.getPrintWidget());
+    if(this.widget.showPrintButton) {
+      actionWidgetList.add(this.getPrintWidget());
+    }
 
     if (this.widget.showReloadButton == true) {
       actionWidgetList.add(this.reloadButton());
