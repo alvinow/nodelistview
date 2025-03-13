@@ -428,6 +428,7 @@ class _NodeListViewState extends State<NodeListView>
           icon: Icon(
             Icons.refresh,
             size: this.widget.reloadButtonSize,
+            color: this.widget.mainHeaderTitleTextColor,
           ),
           onPressed: () {
             _pagingController.refresh();
