@@ -35,6 +35,7 @@ class FormParamRowViewer extends NodeRowViewer {
 
 
     try {
+      /*
       if (
           rowNode.content.linkbasemodel != null &&
           rowNode.content.linkbasemodel!.rendered!=null &&
@@ -67,7 +68,7 @@ class FormParamRowViewer extends NodeRowViewer {
             },
             child: row
                 );
-      }
+      }*/
     } catch (error) {
       returnValue = Text(rowNode.recordId + ': Error=' + error.toString());
     }
