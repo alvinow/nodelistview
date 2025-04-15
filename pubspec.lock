@@ -1664,7 +1664,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "8c81a9ef91cecf2391a8ef869cf8bd58076036e7"
+      resolved-ref: "6ff6d352307762726ff246f4be0972d5f33296c0"
       url: "https://github.com/alvinow/vwform.git"
     source: git
     version: "1.0.0+1"
