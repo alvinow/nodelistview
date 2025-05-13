@@ -58,10 +58,10 @@ packages:
     dependency: transitive
     description:
       name: audio_session
-      sha256: f100a780050adf5c552d8b59d7af32a60229fda79c623e64004caf9368ccc748
+      sha256: "8f96a7fecbb718cb093070f868b4cdcb8a9b1053dce342ff8ab2fde10eb9afb7"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.1"
+    version: "0.2.2"
   bloc:
     dependency: transitive
     description:
@@ -370,10 +370,10 @@ packages:
     dependency: transitive
     description:
       name: file_picker
-      sha256: a222f231db4f822fc49e3b753674bda630e981873c84bf8604bceeb77fce0b24
+      sha256: "77f8e81d22d2a07d0dee2c62e1dda71dc1da73bf43bb2d45af09727406167964"
       url: "https://pub.dev"
     source: hosted
-    version: "10.1.7"
+    version: "10.1.9"
   file_saver:
     dependency: transitive
     description:
@@ -745,10 +745,10 @@ packages:
     dependency: transitive
     description:
       name: just_audio_web
-      sha256: "8c7e779892e180cbc9ffb5a3c52f6e90e1cbbf4a63694cc450972a7edbd2bb6d"
+      sha256: "6ba8a2a7e87d57d32f0f7b42856ade3d6a9fbe0f1a11fabae0a4f00bb73f0663"
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.15"
+    version: "0.4.16"
   latlong2:
     dependency: transitive
     description:
@@ -1664,7 +1664,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "91db0857efe3eba5e01956eb3ae1d9f7d3bfc77e"
+      resolved-ref: "1dbbf2c519c1897bfa9da7f80bca27e602f3c490"
       url: "https://github.com/alvinow/vwform.git"
     source: git
     version: "1.0.0+1"
