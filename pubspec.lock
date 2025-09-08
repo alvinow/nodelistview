@@ -914,7 +914,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: d6975793f346ab1ece293c8e73bf0631b41d030b
+      resolved-ref: "63c019bf4f85c918a445331621a7f9464893c668"
       url: "https://github.com/alvinow/matrixclient2base.git"
     source: git
     version: "1.0.0+1"
@@ -1712,7 +1712,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "011f54a716f2947c52dc577c30da6896a8a6317f"
+      resolved-ref: "4a7e5c9a2f370d3f9181cd0e49f5eaa345f49593"
       url: "https://github.com/alvinow/vwform.git"
     source: git
     version: "1.0.0+1"
