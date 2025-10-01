@@ -130,7 +130,9 @@ class NodeListView extends StatefulWidget {
       this.margin = const EdgeInsets.fromLTRB(10, 65, 0, 5),
       this.backgroundColor = Colors.transparent,
         this.showPrintButton=true,
-      this.excludedRow = const []});
+      this.excludedRow = const [],
+      this.refreshDataToParentFunction,
+      });
 
   static const String mlaLeft = "mlaLeft";
   static const String mlaCenter = "mlaCenter";
@@ -205,6 +207,8 @@ class NodeListView extends StatefulWidget {
   final Color backgroundColor;
   final EdgeInsetsGeometry? margin;
   final bool isListReverse;
+  final RefreshDataOnParentFunction? refreshDataToParentFunction;
+
 
   _NodeListViewState createState() => _NodeListViewState();
 }
@@ -447,6 +451,12 @@ class _NodeListViewState extends State<NodeListView>
 
   void _refreshData() {
     _pagingController.refresh();
+    if(this.widget.refreshDataToParentFunction!=null)
+      {
+        this.widget.refreshDataToParentFunction!();
+      }
+
+
   }
 
   Future<void> _fetchPageToServerWithControl(int pageKey) async {
