@@ -324,6 +324,10 @@ class _NodeListViewState extends State<NodeListView>
 
   void reloadData() {
     _pagingController.refresh();
+    if(this.widget.refreshDataToParentFunction!=null)
+    {
+      this.widget.refreshDataToParentFunction!();
+    }
   }
 
   Widget? getTopRowWidget() {
