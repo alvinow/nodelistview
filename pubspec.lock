@@ -1699,7 +1699,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: dc5f8cdf8c641c364d6908f2bb69286feb6f647c
+      resolved-ref: e46e9e48a00121ce7819fb01df5cb2c76d328873
       url: "https://github.com/alvinow/vwutil.git"
     source: git
     version: "1.0.0+1"
